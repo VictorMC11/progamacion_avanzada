@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Canvas</title>
+	<style type="text/css">
+		.content: {
+			background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="content">
+		
+	</div>
+
+	<canvas id="tutorial" width="500" height="300">
+		
+	</canvas>
+
+	<script type="text/javascript">
+	
+		var canvas = document.getElementById('tutorial'); 
+		if (canvas.getContext){
+			var ctx = canvas.getContext('2d'); 
+
+        	ctx.fillStyle = "rgb(100,0,0)";
+        	ctx.fillRect (10, 10, 55, 50);
+
+        	ctx.fillStyle = "rgba(0, 0, 100, 0.5)";
+        	ctx.fillRect (30, 30, 55, 50);
+		}
+
+	</script>
+</body>	
+</html>

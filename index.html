@@ -40,9 +40,14 @@
         	//ctx.fillStyle = "rgba(0, 0, 100, 0.5)";
         	//ctx.fillRect (30, 30, 55, 50);
 
-        	ctx.moveTo(0, 0);
-        	ctx.lineTo(100, 100);
+        	//ctx.moveTo(0, 0);
+        	//ctx.lineTo(100, 100);
+        	//ctx.stroke();
+
+        	ctx.beginPath();
+        	ctx.arc(150, 150, 40, 0, 2 * Math.pi);
         	ctx.stroke();
+        	ctx.closePath();
 		}
 
 	</script>

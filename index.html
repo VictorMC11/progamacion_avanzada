@@ -6,7 +6,14 @@
 	<title>Canvas</title>
 	<style type="text/css">
 		.content: {
+			width: 80%;
+			min-height: 600px;
 			background-color: black;
+			margin: auto;
+		}
+		canvas{
+			background-color: white;
+			margin: auto;
 		}
 	</style>
 
@@ -27,11 +34,15 @@
 		if (canvas.getContext){
 			var ctx = canvas.getContext('2d'); 
 
-        	ctx.fillStyle = "rgb(100,0,0)";
-        	ctx.fillRect (10, 10, 55, 50);
+        	//ctx.fillStyle = "rgb(100,0,0)";
+        	//ctx.fillRect (10, 10, 55, 50);
 
-        	ctx.fillStyle = "rgba(0, 0, 100, 0.5)";
-        	ctx.fillRect (30, 30, 55, 50);
+        	//ctx.fillStyle = "rgba(0, 0, 100, 0.5)";
+        	//ctx.fillRect (30, 30, 55, 50);
+
+        	ctx.moveTo(0, 0);
+        	ctx.lineTo(100, 100);
+        	ctx.stroke();
 		}
 
 	</script>

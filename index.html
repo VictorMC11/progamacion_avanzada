@@ -49,10 +49,16 @@
 			//ctx.font = "25px Arial";
 			//ctx.fillText("Hello World", 10, 30);
 
-			ctx.font = "25px Arial";
-			ctx.strokeStyle = "black"
-			ctx.strokeText("Hello World", 10, 30);
+			//ctx.font = "25px Arial";
+			//ctx.strokeStyle = "black"
+			//ctx.strokeText("Hello World", 10, 30);
 
+			var grd = ctx.createLinearGradient(0, 0, 200, 0);
+			grd.addColorStop(0,"red");
+			grd.addColorStop(1,"white");
+
+			ctx.fillStyle = grd;
+			ctx.fillRect(10,10,150,80);
 		}
 
 	</script>

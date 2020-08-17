@@ -21,16 +21,12 @@
 
 <body>
 	<div id="content">
-		
+		<canvas id="canvas" width="500" height="300">	</canvas>
 	</div>
-
-	<canvas id="tutorial" width="500" height="300">
-		
-	</canvas>
 
 	<script type="text/javascript">
 	
-		var canvas = document.getElementById('tutorial'); 
+		var canvas = document.getElementById('canvas'); 
 		if (canvas.getContext){
 			var ctx = canvas.getContext('2d'); 
 
@@ -45,9 +41,10 @@
         	//ctx.stroke();
 
         	ctx.beginPath();
-        	ctx.arc(150, 150, 40, 0, 2 * Math.pi);
-        	ctx.stroke();
-        	ctx.closePath();
+			ctx.arc(150, 150, 40, 0, 2 * Math.PI);
+			ctx.stroke();
+			ctx.closePath();
+
 		}
 
 	</script>

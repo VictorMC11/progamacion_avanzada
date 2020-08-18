@@ -5,10 +5,10 @@
 <head>
 	<title>Canvas</title>
 	<style type="text/css">
-		.content: {
+		.content{
 			width: 80%;
 			min-height: 600px;
-			background-color: black;
+			background-color: white;
 			margin: auto;
 		}
 		canvas{
@@ -20,8 +20,8 @@
 </head>
 
 <body>
-	<div id="content">
-		<canvas id="canvas" width="500" height="300">	</canvas>
+	<div class="content">
+		<canvas id="canvas" width="600" height="600">	</canvas>
 		<img id="imagen" style="visibility: hidden;" src="imagen.jpg">
 	</div>
 
@@ -68,12 +68,79 @@
 			//ctx.fillStyle = grd;
 			//ctx.fillRect(10,10,150,150);
 
-			window.onload=function() {
-				var img = document.getElementById('imagen');
-				ctx.drawImage(img,10,10);
-			}
+			///window.onload=function() {
+				///var img = document.getElementById('imagen');
+				///ctx.drawImage(img,10,10);
+			///}
 			
-		}
+        	ctx.beginPath();
+   			ctx.arc(75,75,50,0,Math.PI*2,true);
+   			ctx.fillStyle= "rgb(216, 183, 157)";
+   			ctx.fill();
+            
+            ctx.beginPath();
+   			ctx.arc(75,75,50,5,Math.PI*2);
+   			ctx.fillStyle= "rgb(223, 210, 81)";
+   			ctx.fill();
+    		
+    		ctx.beginPath();
+    		ctx.arc(75,75,35,0,Math.PI,false);  
+    		ctx.fillStyle= "rgb(255, 255, 255)";
+    		ctx.fill()   
+    		
+    		ctx.beginPath();
+    		ctx.arc(60,65,5,0,Math.PI*2,true);
+    		ctx.fillStyle= "rgb(9, 47, 93)";
+    		ctx.fill()  
+  
+    		ctx.beginPath();
+    		ctx.arc(90,65,5,0,Math.PI*2,true);
+    		ctx.fillStyle= "rgb(9, 47, 93)";
+    		ctx.fill();
+            
+            ctx.fillStyle = "rgb(216, 183, 157)";
+        	ctx.fillRect (55, 110, 40, 30);
+           
+            ctx.fillStyle = "rgb(0,0,0)";
+        	ctx.fillRect (25, 140, 105, 200);
+   
+           	ctx.fillStyle = "rgb(0,0,0)";
+        	ctx.fillRect (5, 140, 20, 60);
+            
+            ctx.fillStyle = "rgb(0,0,0)";
+        	ctx.fillRect (130, 140, 20, 60);
+            
+            ctx.fillStyle = "rgb(216, 183, 157)";
+        	ctx.fillRect (5, 200, 20, 80);
+            
+		    ctx.fillStyle = "rgb(216, 183, 157)";
+        	ctx.fillRect (130, 200, 20, 80);
+            
+            ctx.beginPath();
+    		ctx.arc(15,280, 15, 0,Math.PI*2,true);	
+    		ctx.fillStyle= "rgb(216, 183, 157)";
+    		ctx.fill();
+            
+            ctx.fillStyle = "rgb(159, 88, 59)";
+        	ctx.fillRect (5, 260, 20, 10);
+            
+            ctx.beginPath();
+    		ctx.arc(140,280, 15, 0,Math.PI*2,true);	
+    		ctx.fillStyle= "rgb(216, 183, 157)";
+    		ctx.fill();
+            
+            ctx.fillStyle = "rgb(60, 102, 175)";
+        	ctx.fillRect (25, 340, 45, 80);
+            
+            ctx.fillStyle = "rgb(60, 102, 175)";
+        	ctx.fillRect (85, 340, 45, 80);
+         
+            ctx.fillStyle = "rgb(142, 39, 69)";
+        	ctx.fillRect (15, 420, 45, 20);
+            
+            ctx.fillStyle = "rgb(142, 39, 69)";
+        	ctx.fillRect (95, 420, 45, 20);
+        }
 
 	</script>
 </body>	

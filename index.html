@@ -6,8 +6,8 @@
 	<title>Canvas</title>
 	<style type="text/css">
 		.content{
-			width: 80%;
-			min-height: 600px;
+			width: 100%;
+			min-height: 100%;
 			background-color: white;
 			margin: auto;
 		}
@@ -21,13 +21,15 @@
 
 <body>
 	<div class="content">
-		<canvas id="canvas" width="600" height="600">	</canvas>
+		<canvas id="canvas" width="800" height="600">	</canvas>
 		<img id="imagen" style="visibility: hidden;" src="imagen.jpg">
 	</div>
 
 	<script type="text/javascript">
 	
-		var canvas = document.getElementById('canvas'); 
+		var canvas = document.getElementById('canvas');
+		var isPressed = false;
+
 		if (canvas.getContext){
 			var ctx = canvas.getContext('2d'); 
 
@@ -73,7 +75,7 @@
 				///ctx.drawImage(img,10,10);
 			///}
 			
-        	ctx.beginPath();
+        	/*ctx.beginPath();
    			ctx.arc(75,75,50,0,Math.PI*2,true);
    			ctx.fillStyle= "rgb(216, 183, 157)";
    			ctx.fill();
@@ -143,7 +145,24 @@
         	
         	ctx.font = "25px Arial";
 			ctx.strokeStyle = "black";
-			ctx.strokeText("Victor Moreno", 150, 430);
+			ctx.strokeText("Victor Moreno", 150, 430);*/
+
+			canvas.addEventListener("mousemove", function(evt){
+				if(isPressed){
+					ctx.fillStyle = 'rgb(0, 0, 0)';
+					ctx.beginPath();
+					ctx.arc(evt.layerX, evt.layerY, 5, 0, 2* Math.PI);
+					ctx.fill();
+				}
+			});
+
+			canvas.addEventListener("mouseup", function(evt){
+				isPressed=false;
+			});
+
+			canvas.addEventListener("mousedown", function(evt){
+				isPressed=true;
+			});
         }
 
 	</script>

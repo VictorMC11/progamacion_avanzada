@@ -275,7 +275,8 @@
 	</script>-->
 
 	<script type="text/javascript">
-        var canvas = null, ctx = null, x=0, y=0, direc = null, vel=10;
+        var canvas = null, ctx = null;
+        var x = 0, y = 0, direc = null, vel = 5, player = null, food = null, score = 0;
 
         window.requestAnimationFrame = (function(){
         	return window.requestAnimationFrame ||
@@ -289,60 +290,80 @@
         function paint(ctx)
         {	
         	ctx.fillStyle = "black";
-        	ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.fillRect(0,0,canvas.width,canvas.height)
 
-            ctx.fillStyle = "green";
-            ctx.fillRect(x, y, 10, 10);
+			ctx.fillStyle = "#0f0";
+			player.paint(ctx);
+
+			ctx.fillStyle = "red";
+			food.paint(ctx);
+
+			ctx.fillStyle = "white";	
+			ctx.font = "25px Arial";
+			ctx.fillText(score, 770, 30);
+
         }
 
         function act(){   	
 
         	if(direc=="right"){
-        		x+=vel;
+        		player.x+=vel;
         	}
 
         	if(direc=="left"){
-        		x-=vel;
+        		player.x-=vel;
         	}
 
         	if(direc=="up"){
-        		y-=vel;
+        		player.y-=vel;
         	}
 
         	if(direc=="down"){
-        		y+=vel;
+        		player.y+=vel;
         	}
 
-        	if(x < 0){
-        		x = canvas.width;      		
+        	if(player.x < 0){
+        		player.x = canvas.width;      		
         	}
 
-        	if(x > canvas.width){
-        		x=0;
+        	if(player.x > canvas.width){
+        		player.x=0;
         	}
 
-        	if(y < 0){
-        		y = canvas.height;      		
+        	if(player.y < 0){
+        		player.y = canvas.height;      		
         	}
 
-        	if(y > canvas.height){
-        		y=0;
+        	if(player.y > canvas.height){
+        		player.y=0;
         	}
+
+        	if(player.intersects(food)){
+				food.x = random(canvas.width);
+				food.y = random(canvas.height);
+				score++;
+				//player.w+=10;
+			}
 
         }
 
         function run(){
         	window.requestAnimationFrame(run);
-        	paint(ctx);
         	act();
+        	paint(ctx);
         }
 
         function init(){
             canvas = document.getElementById('canvas');
             ctx = canvas.getContext('2d');
+
+            player = new Rectangle(0,0,10,10);
+			food = new Rectangle(70,50,10,10);
+
             run();
         } 
 
+		window.addEventListener('load',init,false);
 
         document.addEventListener('keydown', function(e){
         	if(e.keyCode == 65){
@@ -363,7 +384,28 @@
 
         });
 
-        window.addEventListener('load',init,false);
+
+        function Rectangle(x,y,w,h){
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+
+			this.paint = function(ctx){
+				ctx.fillRect(this.x,this.y,this.w,this.h);
+			}
+
+			this.intersects = function(rect){
+				if (this.x < rect.x + rect.w && this.x + this.w > rect.x && 
+					this.y < rect.y + rect.h && this.y + this.h > rect.y){
+					return true;
+				}
+			}
+		}
+
+		function random(m){
+			return Math.floor(Math.random()*m);
+		}
 
     </script>
 

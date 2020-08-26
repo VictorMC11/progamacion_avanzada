@@ -276,7 +276,9 @@
 
 	<script type="text/javascript">
         var canvas = null, ctx = null;
-        var x = 0, y = 0, direc = null, vel = 5, player = null, food = null, score = 0;
+        var x = 0, y = 0, direc = null, vel = 5;
+        var player = null, food = null, score = 0, walls = new Array();
+        var gameO= false, pause= null;	
 
         window.requestAnimationFrame = (function(){
         	return window.requestAnimationFrame ||
@@ -298,53 +300,77 @@
 			ctx.fillStyle = "red";
 			food.paint(ctx);
 
-			ctx.fillStyle = "white";	
-			ctx.font = "25px Arial";
-			ctx.fillText(score, 770, 30);
+			ctx.fillStyle = "white";
+			ctx.textAlign = "left";
+			ctx.fillText("SCORE: "+score+ " SPEED: "+vel, 10, 10);
 
+			ctx.fillStyle = "#9E9A99";
+			for (var i = walls.length - 1; i >= 0; i--) {
+				walls[i].paint(ctx);
+			}
+
+			if(pause && !gameO){
+				ctx.fillStyle = "white";
+				ctx.textAlign = "center"; 
+				ctx.fillText(" P A U S E ",240,120);
+			} 
+			if(gameO){
+				ctx.fillStyle = "white";
+				ctx.textAlign = "center";
+				ctx.fillText(" G A M E O V E R ",230,120);
+			} 
         }
 
         function act(){   	
 
-        	if(direc=="right"){
-        		player.x+=vel;
-        	}
+        	if(!pause){ 
+	        	
+	        	if(direc=="right"){
+	        		player.x+=vel;
+	        	}
 
-        	if(direc=="left"){
-        		player.x-=vel;
-        	}
+	        	if(direc=="left"){
+	        		player.x-=vel;
+	        	}
 
-        	if(direc=="up"){
-        		player.y-=vel;
-        	}
+	        	if(direc=="up"){
+	        		player.y-=vel;
+	        	}
 
-        	if(direc=="down"){
-        		player.y+=vel;
-        	}
+	        	if(direc=="down"){
+	        		player.y+=vel;
+	        	}
 
-        	if(player.x < 0){
-        		player.x = canvas.width;      		
-        	}
+	        	if(player.x < 0){
+	        		player.x = canvas.width;      		
+	        	}
 
-        	if(player.x > canvas.width){
-        		player.x=0;
-        	}
+	        	if(player.x > canvas.width){
+	        		player.x=0;
+	        	}
 
-        	if(player.y < 0){
-        		player.y = canvas.height;      		
-        	}
+	        	if(player.y < 0){
+	        		player.y = canvas.height;      		
+	        	}
 
-        	if(player.y > canvas.height){
-        		player.y=0;
-        	}
+	        	if(player.y > canvas.height){
+	        		player.y=0;
+	        	}
 
-        	if(player.intersects(food)){
-				food.x = random(canvas.width);
-				food.y = random(canvas.height);
-				score++;
-				//player.w+=10;
+	        	if(player.intersects(food)){
+					food.x = random(canvas.width);
+					food.y = random(canvas.height);
+					score++;
+					//player.w+=10;
+				}
+
+				for (var i = walls.length - 1; i >= 0; i--) {
+					if(walls[i].intersects(player)){
+						gameO = true;
+						lastPress = null; 
+					}
+				}
 			}
-
         }
 
         function run(){
@@ -358,7 +384,14 @@
             ctx = canvas.getContext('2d');
 
             player = new Rectangle(0,0,10,10);
+
 			food = new Rectangle(70,50,10,10);
+
+			walls.push(new Rectangle(100,50,10,10));
+			walls.push(new Rectangle(100,200,10,10));
+
+			walls.push(new Rectangle(400,50,10,10));
+			walls.push(new Rectangle(400,200,10,10));
 
             run();
         } 
@@ -381,6 +414,11 @@
         	if(e.keyCode == 83){
         		direc="down";
         	}
+
+        	if(e.keyCode==32){
+
+				pause = (pause)?false:true; 
+			}
 
         });
 

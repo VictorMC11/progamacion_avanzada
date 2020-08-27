@@ -281,7 +281,7 @@
         var gameO= false, pause= null;	
         var eat = new Audio(), lose =new Audio(), stop = new Audio();
         var apple = new Image(), snake = new Image();
-        var lastUpdate = 0, FPS=0, acumDelta=10;
+        var lastUpdate = 0, FPS=0, acumDelta=0, frames=0;
 
         window.requestAnimationFrame = (function(){
         	return window.requestAnimationFrame ||

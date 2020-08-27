@@ -279,6 +279,7 @@
         var x = 0, y = 0, direc = null, vel = 5;
         var player = null, food = null, score = 0, walls = new Array();
         var gameO= false, pause= null;	
+        var apple = new Image(), snake = new Image();
 
         window.requestAnimationFrame = (function(){
         	return window.requestAnimationFrame ||
@@ -295,10 +296,12 @@
 			ctx.fillRect(0,0,canvas.width,canvas.height)
 
 			ctx.fillStyle = "#0f0";
-			player.paint(ctx);
+			//player.paint(ctx);
+			ctx.drawImage(snake, player.x, player,y);
 
 			ctx.fillStyle = "red";
-			food.paint(ctx);
+			//food.paint(ctx);
+			ctx.drawImage(apple, food.x, food.y);
 
 			ctx.fillStyle = "white";
 			ctx.textAlign = "left";
@@ -324,54 +327,56 @@
         function act(){   	
 
         	if(!pause){ 
-	        	
-	        	if(direc=="right"){
-	        		player.x+=vel;
-	        	}
+	        	if(!gameO){ 
+		        	if(direc=="right"){
+		        		player.x+=vel;
+		        	}
 
-	        	if(direc=="left"){
-	        		player.x-=vel;
-	        	}
+		        	if(direc=="left"){
+		        		player.x-=vel;
+		        	}
 
-	        	if(direc=="up"){
-	        		player.y-=vel;
-	        	}
+		        	if(direc=="up"){
+		        		player.y-=vel;
+		        	}
 
-	        	if(direc=="down"){
-	        		player.y+=vel;
-	        	}
+		        	if(direc=="down"){
+		        		player.y+=vel;
+		        	}
 
-	        	if(player.x < 0){
-	        		player.x = canvas.width;      		
-	        	}
+		        	if(player.x < 0){
+		        		player.x = canvas.width;      		
+		        	}
 
-	        	if(player.x > canvas.width){
-	        		player.x=0;
-	        	}
+		        	if(player.x > canvas.width){
+		        		player.x=0;
+		        	}
 
-	        	if(player.y < 0){
-	        		player.y = canvas.height;      		
-	        	}
+		        	if(player.y < 0){
+		        		player.y = canvas.height;      		
+		        	}
 
-	        	if(player.y > canvas.height){
-	        		player.y=0;
-	        	}
+		        	if(player.y > canvas.height){
+		        		player.y=0;
+		        	}
 
-	        	if(player.intersects(food)){
-					food.x = random(canvas.width);
-					food.y = random(canvas.height);
-					score++;
-					vel++;
-					//player.w+=10;
-				}
-
-				for (var i = walls.length - 1; i >= 0; i--) {
-					if(walls[i].intersects(player)){
-						gameO = true;
-						lastPress = null; 
-						vel = 0
+		        	if(player.intersects(food)){
+						food.x = random(canvas.width);
+						food.y = random(canvas.height);
+						score++;
+						vel++;
+						//player.w+=10;
 					}
-				}
+
+					for (var i = walls.length - 1; i >= 0; i--) {
+						if(walls[i].intersects(player)){
+							gameO = true;
+							lastPress = null; 
+							vel = 0
+							setTimeout('reset()',3000);
+						}
+					}
+				}	
 			}
         }
 
@@ -381,9 +386,24 @@
         	paint(ctx);
         }
 
+        function reset(){
+        	gameO=false;
+        	score=0;
+        	vel=5;
+
+        	player.x=0;
+        	player.y=0;
+
+        	food.x=70;
+        	food.y=50;
+        }
+
         function init(){
             canvas = document.getElementById('canvas');
             ctx = canvas.getContext('2d');
+
+            snake.src ="images/snake.png";
+			apple.src ="images/apple.png";
 
             player = new Rectangle(0,0,10,10);
 
@@ -392,8 +412,8 @@
 			walls.push(new Rectangle(100,50,10,10));
 			walls.push(new Rectangle(100,200,10,10));
 
-			walls.push(new Rectangle(400,50,10,10));
-			walls.push(new Rectangle(400,200,10,10));
+			walls.push(new Rectangle(40,70,10,10));
+			walls.push(new Rectangle(40,200,10,10));
 
             run();
         } 

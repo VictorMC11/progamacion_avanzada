@@ -280,6 +280,7 @@
         var player = null, food = null, score = 0, walls = new Array();
         var gameO= false, pause= null;	
         var apple = new Image(), snake = new Image();
+        var eat = new Audio(), lose =new Audio(), stop = new Audio();
 
         window.requestAnimationFrame = (function(){
         	return window.requestAnimationFrame ||
@@ -296,12 +297,12 @@
 			ctx.fillRect(0,0,canvas.width,canvas.height)
 
 			ctx.fillStyle = "#0f0";
-			//player.paint(ctx);
-			ctx.drawImage(snake, player.x, player,y);
+			player.paint(ctx);
+			//ctx.drawImage(snake, player.x, player,y);
 
 			ctx.fillStyle = "red";
-			//food.paint(ctx);
-			ctx.drawImage(apple, food.x, food.y);
+			food.paint(ctx);
+			//ctx.drawImage(apple, food.x, food.y);
 
 			ctx.fillStyle = "white";
 			ctx.textAlign = "left";
@@ -365,6 +366,7 @@
 						food.y = random(canvas.height);
 						score++;
 						vel++;
+						eat.play();
 						//player.w+=10;
 					}
 
@@ -373,6 +375,7 @@
 							gameO = true;
 							lastPress = null; 
 							vel = 0
+							lose.play();
 							setTimeout('reset()',3000);
 						}
 					}
@@ -402,18 +405,20 @@
             canvas = document.getElementById('canvas');
             ctx = canvas.getContext('2d');
 
-            snake.src ="images/snake.png";
-			apple.src ="images/apple.png";
+            snake.src ="snake.png";
+			apple.src ="apple.png";
 
-            player = new Rectangle(0,0,10,10);
+            player = new Rectangle(0, 0, 10, 10);
+			food = new Rectangle(70, 50, 10, 10);
 
-			food = new Rectangle(70,50,10,10);
+			walls.push(new Rectangle(50, 50, 10, 10));
+			walls.push(new Rectangle(300, 50, 10, 10));
+			walls.push(new Rectangle(50, 170, 10, 10));
+			walls.push(new Rectangle(300, 170, 10, 10));
 
-			walls.push(new Rectangle(100,50,10,10));
-			walls.push(new Rectangle(100,200,10,10));
-
-			walls.push(new Rectangle(40,70,10,10));
-			walls.push(new Rectangle(40,200,10,10));
+			eat.src="mario-coin.mp3";
+			lose.src="mario-kart-perdiste-perder-loser.mp3";
+			stop.src="mario-bros-jump.mp3";
 
             run();
         } 
@@ -440,6 +445,8 @@
         	if(e.keyCode==32){
 
 				pause = (pause)?false:true; 
+				stop.play();
+
 			}
 
         });
